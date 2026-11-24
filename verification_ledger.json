@@ -836,6 +836,13 @@
       "input_hash": "387e01f837c951ebaf5ebbce1f0ec3261b68517aff2add4f805f43c8cb1af604",
       "verified_at_commit": "b0d5578"
     },
+    "mf-balancer-constant-mean-spot-price": {
+      "benchmark_file": "defi.json",
+      "date": "2026-11-24",
+      "elapsed_s": 3.6,
+      "input_hash": "0b561a3ab22b418398f1fd016fbca0c81975d4b5114648e39f518ef14075a2f6",
+      "verified_at_commit": "cbe842dd"
+    },
     "mf-barrier-inout-parity": {
       "benchmark_file": "exotic_options.json",
       "date": "2026-11-19",

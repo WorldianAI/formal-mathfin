@@ -26,6 +26,24 @@ Report `reduced_core` and `placeholder` separately. **Spec-with-axiomatized-conc
 
 ## Current Audit
 
+### The constant-mean (Balancer) pool: invariant and spot price (2026-11-24)
+
+One `full` entry in `benchmarks/defi.json`. Corpus 906 → 907 on the merged tree
+(866 full before, 867 after; 884 → 885 delivery-ready).
+
+- **`mf-balancer-constant-mean-spot-price`** (MathFin/Markets/DeFi/BalancerConstantMean.lean): the
+  invariant `V = ∏ᵢ B_i^{w_i}` of an `n`-token pool with reserves `B_i > 0` and weights `w_i > 0`,
+  positive (`constantMeanInvariant_pos`) and homogeneous of degree one when the weights sum to one
+  (`constantMeanInvariant_smul`); its partial derivatives `∂V/∂B_i = w_i·V/B_i`
+  (`hasDerivAt_constantMeanInvariant_update`); and the spot price of token `i` in terms of token
+  `j` as the ratio of two partial derivatives, equal to `(B_j/w_j)/(B_i/w_i)`
+  (`constantMeanSpotPrice_eq_deriv_ratio`). For two tokens of weight `1/2` the invariant satisfies
+  `V² = x·y` and the spot price is `y/x`, the `internalPrice` of the constant-product pool
+  (`constantMeanInvariant_sq_two`, `constantMeanSpotPrice_two`). Cited: Martinelli & Mushegian
+  (2019), the Balancer whitepaper. Disclosed out of scope: the spot price is the fee-free marginal
+  price; the swap formulas (amount out for an amount in), fees, and pool joins and exits are not
+  treated. Axioms-clean, `full`.
+
 ### Marchenko-Pastur support edges (2026-11-08)
 
 One `full` entry in `benchmarks/portfolio_and_performance.json`. Corpus 805 → 806 on the merged

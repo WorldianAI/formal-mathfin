@@ -26,7 +26,7 @@ pick up `sorryAx` (a `sorry`) or a non-standard axiom without breaking
 
 The curated, storied audit is MathFin/AxiomAudit.lean (headliners + dated
 narrative); THIS file is its machine-written closure over the benchmark
-corpus (1115 MathFin constants, 29 upstream). Citations
+corpus (1118 MathFin constants, 29 upstream). Citations
 are resolved by declaration (tools/verify/mathfin_index.py), so a name cited
 unqualified under `open`, by dot notation on a hypothesis, or declared
 outside the MathFin namespace is pinned like any other. Statement-position
@@ -659,6 +659,18 @@ namespace MathFin.AxiomAuditGen
 /-- info: 'MathFin.DeFi.clHistoricalVaR_le_value' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in
 #print axioms MathFin.DeFi.clHistoricalVaR_le_value
+
+/-- info: 'MathFin.DeFi.constantMeanInvariant_sq_two' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms MathFin.DeFi.constantMeanInvariant_sq_two
+
+/-- info: 'MathFin.DeFi.constantMeanSpotPrice_eq_deriv_ratio' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms MathFin.DeFi.constantMeanSpotPrice_eq_deriv_ratio
+
+/-- info: 'MathFin.DeFi.constantMeanSpotPrice_two' depends on axioms: [propext, Classical.choice, Quot.sound] -/
+#guard_msgs (whitespace := lax) in
+#print axioms MathFin.DeFi.constantMeanSpotPrice_two
 
 /-- info: 'MathFin.DeFi.coveredCall_sub_v3PositionValue' depends on axioms: [propext, Classical.choice, Quot.sound] -/
 #guard_msgs (whitespace := lax) in

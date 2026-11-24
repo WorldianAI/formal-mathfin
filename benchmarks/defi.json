@@ -165,6 +165,26 @@
       }
     },
     {
+      "id": "mf-balancer-constant-mean-spot-price",
+      "name": "Balancer Constant-Mean AMM: Invariant, Spot Price and the Constant-Product Reduction",
+      "description": "The constant-mean (Balancer) automated market maker with n tokens, reserves B_i > 0 and weights w_i > 0: the invariant V = ∏ᵢ B_i^{w_i} (positive, and homogeneous of degree one when the weights sum to one), its partial derivatives ∂V/∂B_i = w_i·V/B_i, and the spot price of token i in terms of token j as the ratio of the two partial derivatives, (∂V/∂B_i)/(∂V/∂B_j) = (B_j/w_j)/(B_i/w_i). For two tokens with weights 1/2 the invariant satisfies V² = x·y and the spot price is y/x, the internal price of the constant-product pool of mf-cpmm-arbitrage-iff-price-divergence.",
+      "domain": "mathematical_finance",
+      "code": {
+        "lean": "import MathFin.Markets.DeFi.BalancerConstantMean\n\nopen MathFin.DeFi\n\n/-- **The Balancer spot price from the constant-mean invariant.** For reserves `B i > 0` and weights `w i > 0`, the\nratio of the partial derivatives of `V = ∏ᵢ B_i^{w_i}` in the coordinates `i` and `j` is `(B_j / w_j) / (B_i / w_i)`. -/\ntheorem balancer_spot_price_from_invariant {ι : Type*} [Fintype ι] [DecidableEq ι]\n    {w B : ι → ℝ} (hB : ∀ i, 0 < B i) (hw : ∀ i, 0 < w i) (i j : ι) :\n    deriv (fun t ↦ constantMeanInvariant w (Function.update B i t)) (B i)\n        / deriv (fun t ↦ constantMeanInvariant w (Function.update B j t)) (B j)\n      = (B j / w j) / (B i / w i) :=\n  constantMeanSpotPrice_eq_deriv_ratio hB hw i j\n\n/-- With two tokens of weight `1/2` the invariant satisfies `V² = x·y` and the spot price is `y / x`, the internal\nprice of the constant-product pool. -/\ntheorem balancer_two_token_is_constant_product {x y : ℝ} (hx : 0 < x) (hy : 0 < y) :\n    constantMeanInvariant (fun _ : Fin 2 ↦ (1 / 2 : ℝ)) ![x, y] ^ 2 = x * y ∧\n      constantMeanSpotPrice (fun _ : Fin 2 ↦ (1 / 2 : ℝ)) ![x, y] 0 1 = internalPrice x y :=\n  ⟨constantMeanInvariant_sq_two hx hy, constantMeanSpotPrice_two hx⟩\n"
+      },
+      "metadata": {
+        "reference": "F. Martinelli, N. Mushegian, Balancer: a non-custodial portfolio manager, liquidity provider, and price sensor (whitepaper, 2019): the constant-mean invariant and its spot price",
+        "citations": [
+          {
+            "key": "MartinelliMushegian2019"
+          }
+        ],
+        "difficulty": "introductory",
+        "formalization_status": "full",
+        "formalization_scope": "Full formal proof. Re-export of MathFin.DeFi.constantMeanSpotPrice_eq_deriv_ratio, constantMeanInvariant_sq_two and constantMeanSpotPrice_two (MathFin/Markets/DeFi/BalancerConstantMean.lean). The spot price is the fee-free marginal price, the ratio of the partial derivatives of the invariant at the current reserves. Not covered: the swap formulas (amount out for an amount in), trading fees, and pool joins and exits."
+      }
+    },
+    {
       "id": "mf-uniswap-v3-position-bs-price-bound",
       "name": "Black-Scholes Price Bound for a Uniswap v3 Position",
       "domain": "mathematical_finance",
